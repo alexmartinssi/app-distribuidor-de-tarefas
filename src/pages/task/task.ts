@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { TaskService } from '../../services/domain/task.service';
 
 /**
  * Generated class for the TaskPage page.
@@ -15,11 +16,20 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class TaskPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams,
+    public taskService: TaskService
+    ) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad TaskPage');
+    this.taskService.findAll()
+      .subscribe(response => {
+        console.log(response);
+      },
+      error => {
+        console.log(error);
+      });
   }
-
 }
