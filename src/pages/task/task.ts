@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { TaskService } from '../../services/domain/task.service';
+import { TaskDTO } from '../../models/task.dto';
 
 /**
  * Generated class for the TaskPage page.
@@ -16,6 +17,8 @@ import { TaskService } from '../../services/domain/task.service';
 })
 export class TaskPage {
 
+  items: TaskDTO[];
+
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
@@ -27,9 +30,8 @@ export class TaskPage {
     this.taskService.findAll()
       .subscribe(response => {
         console.log(response);
+        this.items = response;
       },
-      error => {
-        console.log(error);
-      });
+      error => {});
   }
 }

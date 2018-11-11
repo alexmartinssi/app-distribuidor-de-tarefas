@@ -9,5 +9,14 @@
 
 
 <ion-content padding>
-    <p>Página de Tarefas</p>
+  <ion-list>
+    <ion-item *ngFor="let item of items">
+      <h2>{{ item.register.name }}</h2>
+      <p>Nome: {{ item.name }}</p>
+      <p>Descrição: {{ item.description }}</p>
+      <p>Premiação: {{ item.register.reward }}</p>
+      <p>Data inicial: {{ item.register.initialDate }}</p>
+      <p>Data Final: {{ item.register.finalDate }}</p>
+    </ion-item>
+  </ion-list>
 </ion-content>
