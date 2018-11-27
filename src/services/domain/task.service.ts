@@ -12,7 +12,7 @@ export class TaskService {
     }
 
     findAll() : Observable<TaskDTO[]> {
-        return this.http.get<TaskDTO[]>(`${API_CONFIG.baseUrl}/api/tasks/v1/list/`);
+        return this.http.get<TaskDTO[]>(`${API_CONFIG.baseUrl}/api/tasks/v1/list`);
     }
 
 }
