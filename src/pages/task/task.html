@@ -10,7 +10,7 @@
 
 <ion-content padding>
   <ion-list>
-    <ion-item *ngFor="let item of items">
+    <ion-item *ngFor="let item of items?.content">
       <h2>{{ item.register.name }}</h2>
       <p>Nome: {{ item.name }}</p>
       <p>Descrição: {{ item.description }}</p>
