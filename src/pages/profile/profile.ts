@@ -4,13 +4,6 @@ import { StorageService } from '../../services/storage.service';
 import { UserService } from '../../services/domain/user.service';
 import { UserDTO } from '../../models/user.dto';
 
-/**
- * Generated class for the ProfilePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-profile',
@@ -33,8 +26,15 @@ export class ProfilePage {
         .subscribe( response => {
           this.user = response;
         },
-        error => {});
+        error => {
+          if (error.status == 403) {
+            this.navCtrl.setRoot('HomePage');
+          }
+        });
     }
+    else {
+      this.navCtrl.setRoot('HomePage');
+    }    
   }
 
 }

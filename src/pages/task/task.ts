@@ -31,6 +31,10 @@ export class TaskPage {
       .subscribe(response => {
         this.items = response;
       },
-      error => {});
+      error => {
+        if (error.status == 403) {
+          this.navCtrl.setRoot('HomePage');
+        }
+      });
   }
 }
