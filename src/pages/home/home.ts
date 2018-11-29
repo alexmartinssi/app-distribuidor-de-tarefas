@@ -22,15 +22,6 @@ export class HomePage {
 
   }
 
-  login() {
-    this.auth.authenticate(this.creds)
-      .subscribe(response => {
-        this.auth.sucessfulLogin(response.headers.get('Authorization'));
-        this.navCtrl.setRoot('TaskPage');
-      },
-      error => {});
-  }
-
   ionViewWillEnter() {
     this.menu.swipeEnable(false);
   }
@@ -46,6 +37,19 @@ export class HomePage {
         this.navCtrl.setRoot('TaskPage');
       },
       error => {});
+  }
+
+  login() {
+    this.auth.authenticate(this.creds)
+      .subscribe(response => {
+        this.auth.sucessfulLogin(response.headers.get('Authorization'));
+        this.navCtrl.setRoot('TaskPage');
+      },
+      error => {});
+  }
+
+  signup(){
+    this.navCtrl.push('SignupPage');
   }
 
 }
