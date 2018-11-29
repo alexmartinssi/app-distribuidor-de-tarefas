@@ -11,23 +11,23 @@
       <ion-label stacked>Nome*</ion-label>
       <ion-input formControlName="name" type="text"></ion-input>
     </ion-item>
-    <!-- <p class="danger" *ngIf="formGroup.controls.name.dirty && formGroup.controls.name.errors" margin-left>Valor inválido</p> -->
+    <p class="danger" *ngIf="formGroup.controls.name.dirty && formGroup.controls.name.errors" margin-left>Valor inválido</p>
     <ion-item>
       <ion-label stacked>Username*</ion-label>
       <ion-input formControlName="username" type="text"></ion-input>
     </ion-item>
-    <!-- <p class="danger" *ngIf="formGroup.controls.username.dirty && formGroup.controls.username.errors" margin-left>Valor inválido</p> -->
+    <p class="danger" *ngIf="formGroup.controls.username.dirty && formGroup.controls.username.errors" margin-left>Valor inválido</p>
     <ion-item>
       <ion-label stacked>Email*</ion-label>
       <ion-input formControlName="email" type="text"></ion-input>
     </ion-item>
-    <!-- <p class="danger" *ngIf="formGroup.controls.email.dirty && formGroup.controls.email.errors" margin-left>Valor inválido</p> -->
+    <p class="danger" *ngIf="formGroup.controls.email.dirty && formGroup.controls.email.errors" margin-left>Valor inválido</p>
     <ion-item>
       <ion-label stacked>Senha*</ion-label>
       <ion-input formControlName="password" type="password"></ion-input>
     </ion-item> 
-    <!-- <p class="danger" *ngIf="formGroup.controls.password.dirty && formGroup.controls.password.errors" margin-left>Valor inválido</p> -->
+    <p class="danger" *ngIf="formGroup.controls.password.dirty && formGroup.controls.password.errors" margin-left>Valor inválido</p>
     <br />
-    <button ion-button block type="submit" >Criar conta</button>
+    <button ion-button block type="submit" [disabled]="formGroup.invalid">Criar conta</button>
   </form>
 </ion-content>
