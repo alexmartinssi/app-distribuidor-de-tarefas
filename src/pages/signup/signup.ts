@@ -24,12 +24,12 @@ export class SignupPage {
         name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
         username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
         email: ['', [Validators.required, Validators.email]],
-        password : ['', [Validators.required]],
-     
+        password: ['', [Validators.required]]
       });
   }
 
   signupUser(){
+    console.log(this.formGroup.value);
     this.userService.create(this.formGroup.value)
       .subscribe(response => {
         this.showCreateOk();
