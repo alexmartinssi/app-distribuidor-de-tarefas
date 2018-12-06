@@ -39,7 +39,6 @@ export class SignupPage {
 
   showCreateOk(){
     let alert = this.alertCtrl.create({
-      title: 'Sucesso!',
       message: 'Cadastro efetuado com sucesso.',
       enableBackdropDismiss: false,
       buttons:[
@@ -51,7 +50,7 @@ export class SignupPage {
         }
       ]
     });
-    alert.present;
+    alert.present();
   }
 
 }

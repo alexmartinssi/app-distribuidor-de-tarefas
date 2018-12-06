@@ -2,9 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
-
 import { MyApp } from './app.component';
-
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { TaskService } from '../services/domain/task.service';
@@ -13,19 +11,23 @@ import { AuthService } from '../services/auth.service';
 import { StorageService } from '../services/storage.service';
 import { AuthInterceptorProvider } from '../interceptors/auth-interceptor';
 import { UserService } from '../services/domain/user.service';
+import { RegisterService } from '../services/domain/register.service';
+import { IonicSelectableModule } from 'ionic-selectable';
+
 
 @NgModule({
   declarations: [
-    MyApp
+    MyApp,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp),
+    IonicSelectableModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp
+    MyApp,
   ],
   providers: [
     StatusBar,
@@ -36,7 +38,8 @@ import { UserService } from '../services/domain/user.service';
     ErrorInterceptorProvider,
     AuthService,
     StorageService,
-    UserService
+    UserService,
+    RegisterService
   ]
 })
 export class AppModule {}

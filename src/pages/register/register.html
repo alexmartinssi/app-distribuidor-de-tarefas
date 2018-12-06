@@ -1,13 +1,54 @@
 <ion-header>
   <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Registros</ion-title>
-  </ion-navbar>
+  <button ion-button menuToggle>
+    <ion-icon name="menu"></ion-icon>
+  </button>
+  <ion-title>Distribuir Tarefas</ion-title>
+</ion-navbar>
 </ion-header>
 
-
 <ion-content padding>
-  <p>Página de Registros</p>
+  <form [formGroup]="formGroup" (ngSubmit)="insertRegister(); $event.preventDefault()">
+    <ion-item>
+      <ion-label stacked>Nome do Registro*</ion-label>
+      <ion-input formControlName="name" type="text"></ion-input>
+    </ion-item>
+    <p class="danger" *ngIf="formGroup.controls.name.dirty && formGroup.controls.name.errors" margin-left>Valor inválido</p>
+    <ion-item>
+      <ion-label stacked>Data Inicial*</ion-label>
+      <ion-input formControlName="initialDate" type="date"></ion-input>
+    </ion-item>
+    <p class="danger" *ngIf="formGroup.controls.initialDate.dirty && formGroup.controls.initialDate.errors" margin-left>Valor inválido</p>
+    <ion-item>
+      <ion-label stacked>Data Final*</ion-label>
+      <ion-input formControlName="finalDate" type="date"></ion-input>
+    </ion-item>
+    <p class="danger" *ngIf="formGroup.controls.finalDate.dirty && formGroup.controls.finalDate.errors" margin-left>Valor inválido</p>
+    <ion-item>
+      <ion-label stacked>Prêmio*</ion-label>
+      <ion-input formControlName="reward" type="text"></ion-input>
+    </ion-item> 
+    <p class="danger" *ngIf="formGroup.controls.reward.dirty && formGroup.controls.reward.errors" margin-left>Valor inválido</p>
+    <ion-item>
+      <ion-label>Selecione os participantes</ion-label>
+      <select-searchable 
+        [(ngModel)]="selectedUsers"
+        itemValueField="id"
+        itemTextField="email"
+        [items]="users"
+        [canClear]="true"
+        [isMultiple]="true"
+      >
+      </select-searchable>
+    </ion-item>
+    <p class="danger" *ngIf="formGroup.controls.users.dirty && formGroup.controls.users.errors" margin-left>Valor inválido</p>
+    <ion-searchbar (ionInput)="getItems($event)" placeholder="Adicione as tarefas*"></ion-searchbar>
+    <ion-list *ngIf="showList">
+      <ion-item *ngFor="let item of items">
+        {{ item }}
+      </ion-item>
+    </ion-list>
+    <br />
+    <button ion-button block type="submit" [disabled]="formGroup.invalid">Cadastrar</button>
+  </form>
 </ion-content>

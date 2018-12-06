@@ -7,12 +7,11 @@
   </ion-navbar>
 </ion-header>
 
-
 <ion-content padding>
   <ion-list>
-    <ion-item *ngFor="let item of items?.content">
-      <h2>{{ item.register.name }}</h2>
-      <p>Nome: {{ item.name }}</p>
+    <ion-item *ngFor="let item of items">
+      <h2>{{ item.name }}</h2>
+      <p>Registro: {{ item.register.name }}</p>
       <p>Descrição: {{ item.description }}</p>
       <p>Premiação: {{ item.register.reward }}</p>
       <p>Data inicial: {{ item.register.initialDate }}</p>

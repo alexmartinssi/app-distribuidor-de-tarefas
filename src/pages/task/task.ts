@@ -29,7 +29,7 @@ export class TaskPage {
   ionViewDidLoad() {
     this.taskService.findAll()
       .subscribe(response => {
-        this.items = response;
+        this.items = response['content'];
       },
       error => {
         if (error.status == 403) {

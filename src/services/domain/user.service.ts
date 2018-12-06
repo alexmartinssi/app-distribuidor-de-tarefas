@@ -11,6 +11,12 @@ export class UserService {
 
     }
 
+    findAll() : Observable<UserDTO[]> {
+        return this.http.get<UserDTO[]>(
+            `${API_CONFIG.baseUrl}/api/users/v1/list/`
+        );
+    }
+
     findByEmail(email: string) : Observable<UserDTO> {
         return this.http.get<UserDTO>(`${API_CONFIG.baseUrl}/api/users/email?value=${email}`)
     }
