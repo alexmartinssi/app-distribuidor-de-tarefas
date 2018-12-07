@@ -6,6 +6,7 @@ import { RegisterService } from '../../services/domain/register.service';
 import { TaskService } from '../../services/domain/task.service';
 import { UserService } from '../../services/domain/user.service';
 import { UserDTO } from '../../models/user.dto';
+import { IonicSelectableComponent } from 'ionic-selectable';
 
 @IonicPage()
 @Component({
@@ -17,8 +18,6 @@ export class RegisterPage {
   formGroup: FormGroup;
   users : UserDTO[] = [];
   tasks : TaskDTO[] = [];
-  showUserList: boolean = false;
-  searchQuery: string = '';
   user = null;
   selectedUsers = [];
 
@@ -36,7 +35,7 @@ export class RegisterPage {
         initialDate: ['', [Validators.required]],
         finalDate: ['', [Validators.required]],
         reward: ['', [Validators.required]],
-        users: ['', [Validators.required]]
+        validateSelectUser: ['', [Validators.required]]
       });
       this.getAllUsers();
   }
@@ -47,6 +46,14 @@ export class RegisterPage {
         this.users = response;
       },
       error => {});
+  }
+
+  userChanged(event: {
+    component: IonicSelectableComponent,
+    value: any 
+  }) {
+    this.selectedUsers = event.value;
+    console.log('selectedUsers:', this.selectedUsers);
   }
 
   insertRegister(){

@@ -31,23 +31,19 @@
     <p class="danger" *ngIf="formGroup.controls.reward.dirty && formGroup.controls.reward.errors" margin-left>Valor inválido</p>
     <ion-item>
       <ion-label>Selecione os participantes</ion-label>
-      <select-searchable 
+      <ionic-selectable
+        item-content
         [(ngModel)]="selectedUsers"
-        itemValueField="id"
-        itemTextField="email"
+        itemTextField="username"
         [items]="users"
         [canClear]="true"
         [isMultiple]="true"
-      >
-      </select-searchable>
+        [canSearch]="true"
+        (onChange)="userChanged($event)"
+        formControlName="validateSelectUser">
+      </ionic-selectable>
     </ion-item>
-    <p class="danger" *ngIf="formGroup.controls.users.dirty && formGroup.controls.users.errors" margin-left>Valor inválido</p>
-    <ion-searchbar (ionInput)="getItems($event)" placeholder="Adicione as tarefas*"></ion-searchbar>
-    <ion-list *ngIf="showList">
-      <ion-item *ngFor="let item of items">
-        {{ item }}
-      </ion-item>
-    </ion-list>
+    <p class="danger" *ngIf="formGroup.controls.validateSelectUser.dirty && formGroup.controls.validateSelectUser.errors" margin-left>Valor inválido</p>
     <br />
     <button ion-button block type="submit" [disabled]="formGroup.invalid">Cadastrar</button>
   </form>

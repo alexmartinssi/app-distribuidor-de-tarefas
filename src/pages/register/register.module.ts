@@ -10,7 +10,7 @@ import { IonicSelectableModule } from 'ionic-selectable';
   ],
   imports: [
     IonicPageModule.forChild(RegisterPage),
-    IonicSelectableModule,
+    IonicSelectableModule
   ]
 })
 export class RegisterPageModule {}

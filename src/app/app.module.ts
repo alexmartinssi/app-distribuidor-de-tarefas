@@ -23,7 +23,7 @@ import { IonicSelectableModule } from 'ionic-selectable';
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp),
-    IonicSelectableModule,
+    IonicSelectableModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
