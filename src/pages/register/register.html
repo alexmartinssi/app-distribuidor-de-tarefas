@@ -40,10 +40,39 @@
         [isMultiple]="true"
         [canSearch]="true"
         (onChange)="userChanged($event)"
-        formControlName="validateSelectUser">
+        noItemsFoundText="Usuário não encontrado"
+        clearButtonText="Limpar"
+        formControlName="validateSelectUser"
+        >
       </ionic-selectable>
     </ion-item>
     <p class="danger" *ngIf="formGroup.controls.validateSelectUser.dirty && formGroup.controls.validateSelectUser.errors" margin-left>Valor inválido</p>
+    <ion-item>
+      <form (ngSubmit)="addTask(); $event.preventDefault()">
+        <p>Adicione as tarefas</p>
+        <button ion-button icon-only light small outline item-end type="submit">
+        <ion-icon name="add"></ion-icon>
+       </button>
+      </form>
+    </ion-item>
+    <ion-list *ngIf="show" no-lines>
+        <ion-list-header>
+          Tarefas
+        </ion-list-header>
+        <ion-item-sliding *ngFor="let task of tasks">
+            <ion-item>
+                <p>{{task.name}}</p>
+            </ion-item>
+            <!-- <ion-item-options>
+                <button ion-button icon-only (click)="editNote(note)" light>
+                    <ion-icon name="paper"></ion-icon>
+                </button>
+                <button ion-button icon-only (click)="deleteNote(note)" danger>
+                    <ion-icon name="trash"></ion-icon>
+                </button>
+            </ion-item-options> -->
+        </ion-item-sliding>
+    </ion-list>
     <br />
     <button ion-button block type="submit" [disabled]="formGroup.invalid">Cadastrar</button>
   </form>

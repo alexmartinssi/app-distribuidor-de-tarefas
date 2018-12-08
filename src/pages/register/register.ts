@@ -18,8 +18,10 @@ export class RegisterPage {
   formGroup: FormGroup;
   users : UserDTO[] = [];
   tasks : TaskDTO[] = [];
-  user = null;
+  user : UserDTO = null;
+  task : TaskDTO = null;
   selectedUsers = [];
+  show : boolean = false;
 
   constructor(
     public navCtrl: NavController, 
@@ -35,12 +37,12 @@ export class RegisterPage {
         initialDate: ['', [Validators.required]],
         finalDate: ['', [Validators.required]],
         reward: ['', [Validators.required]],
-        validateSelectUser: ['', [Validators.required]]
+        validateSelectUser: ['', [Validators.required]],
+        validateInsertTask: ['', [Validators.required]]
       });
-      this.getAllUsers();
   }
 
-  getAllUsers() {
+  ionViewDidLoad() {
     this.userService.findAll()
       .subscribe(response => {
         this.users = response;
@@ -54,6 +56,38 @@ export class RegisterPage {
   }) {
     this.selectedUsers = event.value;
     console.log('selectedUsers:', this.selectedUsers);
+  }
+
+  addTask(){
+    let prompt = this.alertCtrl.create({
+        title: 'Adicionar tarefa',
+        enableBackdropDismiss: false,
+        inputs: [
+          {
+            name: 'name',
+            placeholder: 'Nome da tarefa'
+          },
+          {
+            name: 'description',
+            placeholder: 'Descrição da tarefa'
+          }
+        ],
+        buttons: [
+            {
+                text: 'Cancelar'
+            },
+            {
+                text: 'Adicionar',
+                handler: data => {
+                  this.task = data;
+                  this.tasks.push(this.task);
+                  this.show = true;
+                }
+            }
+        ]
+    });
+    prompt.present();
+    console.log('tasks:', this.tasks);
   }
 
   insertRegister(){
