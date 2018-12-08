@@ -16,11 +16,11 @@ import { IonicSelectableComponent } from 'ionic-selectable';
 export class RegisterPage {
 
   formGroup: FormGroup;
-  users : UserDTO[] = [];
+  listUsers : UserDTO[] = [];
   tasks : TaskDTO[] = [];
   user : UserDTO = null;
   task : TaskDTO = null;
-  selectedUsers = [];
+  users : UserDTO[] = [];
   show : boolean = false;
 
   constructor(
@@ -37,15 +37,15 @@ export class RegisterPage {
         initialDate: ['', [Validators.required]],
         finalDate: ['', [Validators.required]],
         reward: ['', [Validators.required]],
-        validateSelectUser: ['', [Validators.required]],
-        validateInsertTask: ['', [Validators.required]]
+        users: ['', [Validators.required]],
+        tasks: ['', [Validators.required]]
       });
   }
 
   ionViewDidLoad() {
     this.userService.findAll()
       .subscribe(response => {
-        this.users = response;
+        this.listUsers = response;
       },
       error => {});
   }
@@ -54,18 +54,17 @@ export class RegisterPage {
     component: IonicSelectableComponent,
     value: any 
   }) {
-    this.selectedUsers = event.value;
-    console.log('selectedUsers:', this.selectedUsers);
+    this.users = event.value;
+    console.log('selectedUsers:', this.users);
   }
 
   addTask(){
     let prompt = this.alertCtrl.create({
         title: 'Adicionar tarefa',
-        enableBackdropDismiss: false,
         inputs: [
           {
             name: 'name',
-            placeholder: 'Nome da tarefa'
+            placeholder: 'Nome da tarefa',
           },
           {
             name: 'description',
@@ -87,10 +86,51 @@ export class RegisterPage {
         ]
     });
     prompt.present();
-    console.log('tasks:', this.tasks);
   }
 
+  editTask(task){
+    let prompt = this.alertCtrl.create({
+        title: 'Editar Tarefa',
+        inputs: [
+          {
+            name: 'name',
+            placeholder: 'Nome da tarefa',
+            value: task.name
+          },
+          {
+            name: 'description',
+            placeholder: 'Descrição da tarefa',
+            value: task.description
+          }
+        ],
+        buttons: [
+            {
+                text: 'Cancelar'
+            },
+            {
+                text: 'Editar',
+                handler: data => {
+                    let index = this.tasks.indexOf(task);
+
+                    if(index > -1){
+                      this.tasks[index] = data;
+                    }
+                }
+            }
+        ]
+    });
+    prompt.present();      
+}
+
+deleteTask(task){
+    let index = this.tasks.indexOf(task);
+    if(index > -1){
+        this.tasks.splice(index, 1);
+    }
+}
   insertRegister(){
+    this.formGroup.controls["users"].setValue(this.users);
+    this.formGroup.controls["tasks"].setValue(this.tasks);
     console.log(this.formGroup.value);
     this.registerService.create(this.formGroup.value)
       .subscribe(response => {

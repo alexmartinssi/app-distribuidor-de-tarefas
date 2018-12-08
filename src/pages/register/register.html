@@ -33,47 +33,49 @@
       <ion-label>Selecione os participantes</ion-label>
       <ionic-selectable
         item-content
-        [(ngModel)]="selectedUsers"
+        [(ngModel)]="users"
         itemTextField="username"
-        [items]="users"
+        [items]="listUsers"
         [canClear]="true"
         [isMultiple]="true"
         [canSearch]="true"
         (onChange)="userChanged($event)"
         noItemsFoundText="Usuário não encontrado"
         clearButtonText="Limpar"
-        formControlName="validateSelectUser"
+        formControlName="users"
         >
       </ionic-selectable>
     </ion-item>
-    <p class="danger" *ngIf="formGroup.controls.validateSelectUser.dirty && formGroup.controls.validateSelectUser.errors" margin-left>Valor inválido</p>
+    <p class="danger" *ngIf="formGroup.controls.users.dirty && formGroup.controls.users.errors" margin-left>Valor inválido</p>
     <ion-item>
       <form (ngSubmit)="addTask(); $event.preventDefault()">
-        <p>Adicione as tarefas</p>
+        Adicione as tarefas
         <button ion-button icon-only light small outline item-end type="submit">
         <ion-icon name="add"></ion-icon>
        </button>
       </form>
     </ion-item>
-    <ion-list *ngIf="show" no-lines>
-        <ion-list-header>
-          Tarefas
-        </ion-list-header>
-        <ion-item-sliding *ngFor="let task of tasks">
-            <ion-item>
-                <p>{{task.name}}</p>
-            </ion-item>
-            <!-- <ion-item-options>
-                <button ion-button icon-only (click)="editNote(note)" light>
-                    <ion-icon name="paper"></ion-icon>
-                </button>
-                <button ion-button icon-only (click)="deleteNote(note)" danger>
-                    <ion-icon name="trash"></ion-icon>
-                </button>
-            </ion-item-options> -->
-        </ion-item-sliding>
-    </ion-list>
+    <form>
+      <ion-list *ngIf="show" no-lines>
+          <ion-list-header>
+            Tarefas
+          </ion-list-header>
+          <ion-item-sliding *ngFor="let task of tasks">
+              <ion-item>
+                  <p>{{task.name}}</p>
+              </ion-item>
+              <ion-item-options>
+                  <button ion-button icon-only (click)="editTask(task)" light>
+                      <ion-icon name="paper"></ion-icon>
+                  </button>
+                  <button ion-button icon-only (click)="deleteTask(task)" danger>
+                      <ion-icon name="trash"></ion-icon>
+                  </button>
+              </ion-item-options>
+          </ion-item-sliding>
+      </ion-list>
+    </form>
     <br />
-    <button ion-button block type="submit" [disabled]="formGroup.invalid">Cadastrar</button>
+    <button ion-button block type="submit">Cadastrar</button>
   </form>
 </ion-content>
