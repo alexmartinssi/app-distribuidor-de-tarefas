@@ -129,30 +129,38 @@ deleteTask(task){
     }
 }
   insertRegister(){
-    this.formGroup.controls["users"].setValue(this.users);
-    this.formGroup.controls["tasks"].setValue(this.tasks);
-    console.log(this.formGroup.value);
-    this.registerService.create(this.formGroup.value)
-      .subscribe(response => {
-        this.showCreateOk();
-      },
-      error => {});
+
+    if (this.users.length != this.tasks.length) {
+      this.showCreateOk('O número de tarefas deve ser igual ao número de usuários!');
+    }else{
+      this.formGroup.controls["users"].setValue(this.users);
+      this.formGroup.controls["tasks"].setValue(this.tasks);
+
+      this.registerService.create(this.formGroup.value)
+        .subscribe(response => {
+          this.showCreateOk('Cadastro efetuado com sucesso.');
+        },
+          error => { });
+    }
+
+    
   }
 
-  showCreateOk(){
+  showCreateOk(mensageGeneric: string){
     let alert = this.alertCtrl.create({
-      message: 'Cadastro efetuado com sucesso.',
+      message: mensageGeneric,
       enableBackdropDismiss: false,
       buttons:[
         {
           text: 'Ok',
           handler: () => {
-            this.navCtrl.setRoot('TaskPage');
+            // this.navCtrl.setRoot('TaskPage');
           }
         }
       ]
     });
     alert.present();
   }
+
 
 }
