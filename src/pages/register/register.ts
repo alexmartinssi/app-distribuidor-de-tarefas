@@ -16,15 +16,15 @@ import { IonicSelectableComponent } from 'ionic-selectable';
 export class RegisterPage {
 
   formGroup: FormGroup;
-  listUsers : UserDTO[] = [];
-  tasks : TaskDTO[] = [];
-  user : UserDTO = null;
-  task : TaskDTO = null;
-  users : UserDTO[] = [];
-  show : boolean = false;
+  listUsers: UserDTO[] = [];
+  tasks: TaskDTO[] = [];
+  user: UserDTO = null;
+  task: TaskDTO = null;
+  users: UserDTO[] = [];
+  show: boolean = false;
 
   constructor(
-    public navCtrl: NavController, 
+    public navCtrl: NavController,
     public navParams: NavParams,
     public formBuilder: FormBuilder,
     public registerService: RegisterService,
@@ -32,14 +32,14 @@ export class RegisterPage {
     public taskService: TaskService,
     public alertCtrl: AlertController) {
 
-      this.formGroup = this.formBuilder.group({
-        name: ['', [Validators.required]],
-        initialDate: ['', [Validators.required]],
-        finalDate: ['', [Validators.required]],
-        reward: ['', [Validators.required]],
-        users: ['', [Validators.required]],
-        tasks: ['', [Validators.required]]
-      });
+    this.formGroup = this.formBuilder.group({
+      name: ['', [Validators.required]],
+      initialDate: ['', [Validators.required]],
+      finalDate: ['', [Validators.required]],
+      reward: ['', [Validators.required]],
+      users: ['', [Validators.required]],
+      tasks: ['', [Validators.required]]
+    });
   }
 
   ionViewDidLoad() {
@@ -47,92 +47,96 @@ export class RegisterPage {
       .subscribe(response => {
         this.listUsers = response;
       },
-      error => {});
+        error => { });
   }
 
   userChanged(event: {
     component: IonicSelectableComponent,
-    value: any 
+    value: any
   }) {
     this.users = event.value;
-    console.log('selectedUsers:', this.users);
   }
 
-  addTask(){
+  addTask() {
     let prompt = this.alertCtrl.create({
-        title: 'Adicionar tarefa',
-        inputs: [
-          {
-            name: 'name',
-            placeholder: 'Nome da tarefa',
-          },
-          {
-            name: 'description',
-            placeholder: 'Descrição da tarefa'
-          }
-        ],
-        buttons: [
-            {
-                text: 'Cancelar'
-            },
-            {
-                text: 'Adicionar',
-                handler: data => {
-                  this.task = data;
-                  this.tasks.push(this.task);
-                  this.show = true;
-                }
+      title: 'Adicionar tarefa',
+      inputs: [
+        {
+          name: 'name',
+          placeholder: 'Nome da tarefa',
+        },
+        {
+          name: 'description',
+          placeholder: 'Descrição da tarefa',
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancelar'
+        },
+        {
+          text: 'Adicionar',
+          handler: data => {
+            if(data.name == ''){
+              prompt.setMessage('É obrigatório o preenchimento do nome da tarefa');
+              return false;
+            }else{
+              this.task = data;
+              this.tasks.push(this.task);
+              this.show = true;
             }
-        ]
+          }
+        }
+      ]
     });
     prompt.present();
   }
 
-  editTask(task){
+  editTask(task) {
     let prompt = this.alertCtrl.create({
-        title: 'Editar Tarefa',
-        inputs: [
-          {
-            name: 'name',
-            placeholder: 'Nome da tarefa',
-            value: task.name
-          },
-          {
-            name: 'description',
-            placeholder: 'Descrição da tarefa',
-            value: task.description
-          }
-        ],
-        buttons: [
-            {
-                text: 'Cancelar'
-            },
-            {
-                text: 'Editar',
-                handler: data => {
-                    let index = this.tasks.indexOf(task);
+      title: 'Editar Tarefa',
+      inputs: [
+        {
+          name: 'name',
+          placeholder: 'Nome da tarefa',
+          value: task.name
+        },
+        {
+          name: 'description',
+          placeholder: 'Descrição da tarefa',
+          value: task.description
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancelar'
+        },
+        {
+          text: 'Editar',
+          handler: data => {
+            let index = this.tasks.indexOf(task);
 
-                    if(index > -1){
-                      this.tasks[index] = data;
-                    }
-                }
+            if (index > -1) {
+              this.tasks[index] = data;
             }
-        ]
+          }
+        }
+      ]
     });
-    prompt.present();      
-}
+    prompt.present();
+  }
 
-deleteTask(task){
+  deleteTask(task) {
     let index = this.tasks.indexOf(task);
-    if(index > -1){
-        this.tasks.splice(index, 1);
+    if (index > -1) {
+      this.tasks.splice(index, 1);
     }
-}
-  insertRegister(){
+  }
 
+  insertRegister() {
     if (this.users.length != this.tasks.length) {
       this.showCreateOk('O número de tarefas deve ser igual ao número de usuários!');
-    }else{
+    } else {
       this.formGroup.controls["users"].setValue(this.users);
       this.formGroup.controls["tasks"].setValue(this.tasks);
 
@@ -142,25 +146,21 @@ deleteTask(task){
         },
           error => { });
     }
-
-    
   }
 
-  showCreateOk(mensageGeneric: string){
+  showCreateOk(mensageGeneric: string) {
     let alert = this.alertCtrl.create({
       message: mensageGeneric,
       enableBackdropDismiss: false,
-      buttons:[
+      buttons: [
         {
           text: 'Ok',
           handler: () => {
-            // this.navCtrl.setRoot('TaskPage');
+            //this.navCtrl.setRoot('TaskPage');
           }
         }
       ]
     });
     alert.present();
   }
-
-
 }
