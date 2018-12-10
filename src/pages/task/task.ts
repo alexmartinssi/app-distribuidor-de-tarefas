@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { TaskService } from '../../services/domain/task.service';
 import { TaskDTO } from '../../models/task.dto';
 
@@ -23,22 +23,34 @@ export class TaskPage {
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
-    public taskService: TaskService
+    public taskService: TaskService,
+    public loadingCtrl: LoadingController
     ) {
   }
 
   ionViewDidLoad() {
+    let loader = this.presentLoading();
     this.taskService.findAll()
       .subscribe(response => {
         this.items = response['content'];
+        loader.dismiss();
         if(this.items.length == 0){
           this.arrayItemsEmpty = true;
         }
       },
       error => {
+        loader.dismiss();
         if (error.status == 403) {
           this.navCtrl.setRoot('HomePage');
         }
       });
+  }
+
+  presentLoading() {
+    let loader = this.loadingCtrl.create({
+      content: "Aguarde..."
+    });
+    loader.present();
+    return loader;
   }
 }
