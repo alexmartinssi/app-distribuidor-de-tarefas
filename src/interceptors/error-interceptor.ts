@@ -90,14 +90,6 @@ export class ErrorInterceptor implements HttpInterceptor {
         });
         alert.present();        
     }
-
-    private listErrors(messages : FieldMessage[]) : string {
-        let s : string = '';
-        for (var i=0; i<messages.length; i++) {
-            s = s + '<p><strong>' + messages[i].fieldName + "</strong>: " + messages[i].message + '</p>';
-        }
-        return s;
-    }
 }
 
 export const ErrorInterceptorProvider = {

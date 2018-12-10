@@ -8,6 +8,9 @@
 </ion-header>
 
 <ion-content padding>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <ion-item *ngIf="arrayItemsEmpty" no-lines>
     <p style="text-align: center;">Você não possui tarefas.</p>
   </ion-item>

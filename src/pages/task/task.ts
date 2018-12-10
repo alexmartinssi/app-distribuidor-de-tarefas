@@ -18,6 +18,7 @@ import { TaskDTO } from '../../models/task.dto';
 export class TaskPage {
 
   items: TaskDTO[];
+  page : number = 0;
   arrayItemsEmpty: boolean = false;
 
   constructor(
@@ -29,6 +30,10 @@ export class TaskPage {
   }
 
   ionViewDidLoad() {
+    this.loadData();
+  }
+
+  loadData(){
     let loader = this.presentLoading();
     this.taskService.findAll()
       .subscribe(response => {
@@ -52,5 +57,14 @@ export class TaskPage {
     });
     loader.present();
     return loader;
+  }
+
+  doRefresh(refresher) {
+    this.page = 0;
+    this.items = [];
+    this.loadData();
+    setTimeout(() => {
+      refresher.complete();
+    }, 2000);
   }
 }
