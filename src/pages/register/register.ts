@@ -55,11 +55,12 @@ export class RegisterPage {
     value: any
   }) {
     this.users = event.value;
+    this.formGroup.controls["users"].setValue(this.users);
   }
 
   addTask() {
     let prompt = this.alertCtrl.create({
-      title: 'Adicionar tarefa',
+      title: 'Adicionar Tarefa',
       inputs: [
         {
           name: 'name',
@@ -78,11 +79,12 @@ export class RegisterPage {
           text: 'Adicionar',
           handler: data => {
             if(data.name == ''){
-              prompt.setMessage('É obrigatório o preenchimento do nome da tarefa');
+              prompt.setMessage('Nome da tarefa é obrigatório.');
               return false;
             }else{
               this.task = data;
               this.tasks.push(this.task);
+              this.formGroup.controls["tasks"].setValue(this.tasks);
               this.show = true;
             }
           }
@@ -114,10 +116,15 @@ export class RegisterPage {
         {
           text: 'Editar',
           handler: data => {
-            let index = this.tasks.indexOf(task);
-
-            if (index > -1) {
-              this.tasks[index] = data;
+            if(data.name == ''){
+              prompt.setMessage('Nome da tarefa é obrigatório.');
+              return false;
+            }else{
+              let index = this.tasks.indexOf(task);
+              if (index > -1) {
+                this.tasks[index] = data;
+                this.formGroup.controls["tasks"].setValue(this.tasks);
+              }
             }
           }
         }
@@ -130,37 +137,59 @@ export class RegisterPage {
     let index = this.tasks.indexOf(task);
     if (index > -1) {
       this.tasks.splice(index, 1);
+      this.formGroup.controls["tasks"].setValue(this.tasks);
     }
   }
 
   insertRegister() {
-    if (this.users.length != this.tasks.length) {
-      this.showCreateOk('O número de tarefas deve ser igual ao número de usuários!');
+    if (this.tasks.length < this.users.length) {
+      this.showValidateError('O número de tarefas deve ser igual ou maior do que o número de usuários!');
     } else {
-      this.formGroup.controls["users"].setValue(this.users);
-      this.formGroup.controls["tasks"].setValue(this.tasks);
-
       this.registerService.create(this.formGroup.value)
         .subscribe(response => {
           this.showCreateOk('Cadastro efetuado com sucesso.');
+          this.clearForm();
         },
           error => { });
     }
   }
 
-  showCreateOk(mensageGeneric: string) {
+  showValidateError(messageGeneric: string) {
     let alert = this.alertCtrl.create({
-      message: mensageGeneric,
+      message: messageGeneric,
       enableBackdropDismiss: false,
       buttons: [
         {
           text: 'Ok',
           handler: () => {
-            //this.navCtrl.setRoot('TaskPage');
           }
         }
       ]
     });
     alert.present();
+  }
+
+  showCreateOk(messageGeneric: string) {
+    let alert = this.alertCtrl.create({
+      subTitle: "<p>" + messageGeneric + "</p>",
+      enableBackdropDismiss: false,
+      buttons: [
+        {
+          text: 'Ok',
+          handler: () => {
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
+  clearForm(){
+    this.tasks = [];
+    this.user = null;
+    this.task= null;
+    this.users= [];
+    this.show = false;
+    this.formGroup.reset();
   }
 }

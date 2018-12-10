@@ -8,14 +8,24 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-list>
-    <ion-item *ngFor="let item of items">
-      <h2>{{ item.name }}</h2>
-      <p>Registro: {{ item.register.name }}</p>
-      <p>Descrição: {{ item.description }}</p>
-      <p>Premiação: {{ item.register.reward }}</p>
-      <p>Data inicial: {{ item.register.initialDate }}</p>
-      <p>Data Final: {{ item.register.finalDate }}</p>
+  <ion-item *ngIf="arrayItemsEmpty" no-lines>
+    <p style="text-align: center;">Você não possui tarefas.</p>
+  </ion-item>
+  <ion-list *ngIf="arrayItemsEmpty == false">
+    <ion-item-sliding *ngFor="let item of items" text-wrap>
+      <ion-item>
+        <h3 text-center>{{ item.name }}</h3>
+        <p>Tipo do Registro: {{ item.register.name }}</p>
+        <p>Descrição da tarefa: {{ item.description }}</p>
+        <p>Premiação: {{ item.register.reward }}</p>
+        <p>Data inicial: {{ item.register.initialDate }}</p>
+        <p>Data Final: {{ item.register.finalDate }}</p>
     </ion-item>
+  </ion-item-sliding>
   </ion-list>
+  <ion-fab title="Distribuir Tarefas" bottom right>
+      <button navPush="RegisterPage" ion-fab mini>
+        <ion-icon name="add"></ion-icon>
+      </button>
+  </ion-fab>
 </ion-content>

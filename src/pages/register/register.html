@@ -30,7 +30,7 @@
     </ion-item> 
     <p class="danger" *ngIf="formGroup.controls.reward.dirty && formGroup.controls.reward.errors" margin-left>Valor inválido</p>
     <ion-item>
-      <ion-label>Selecione os participantes</ion-label>
+      <ion-label>Adicione os participantes*</ion-label>
       <ionic-selectable
         item-content
         [(ngModel)]="users"
@@ -40,7 +40,7 @@
         [isMultiple]="true"
         [canSearch]="true"
         (onChange)="userChanged($event)"
-        noItemsFoundText="Usuário não encontrado"
+        [searchFailText]="'Usuário não encontrado.'"
         clearButtonText="Limpar"
         formControlName="users"
         >
@@ -49,18 +49,18 @@
     <p class="danger" *ngIf="formGroup.controls.users.dirty && formGroup.controls.users.errors" margin-left>Valor inválido</p>
     <ion-item>
       <form (ngSubmit)="addTask(); $event.preventDefault()">
-        Adicione as tarefas
-        <button ion-button icon-only light small outline item-end type="submit">
-        <ion-icon name="add"></ion-icon>
+        <button type="submit" ion-button small outline icon-start color="dark">
+          <ion-icon name="add"></ion-icon>
+          Adicionar tarefas*
        </button>
       </form>
     </ion-item>
     <form>
-      <ion-list *ngIf="show" no-lines>
+      <ion-list *ngIf="show" no-lines inset>
           <ion-list-header>
-            Tarefas
+            Tarefas Adicionadas
           </ion-list-header>
-          <ion-item-sliding *ngFor="let task of tasks">
+          <ion-item-sliding *ngFor="let task of tasks" text-wrap>
               <ion-item>
                   <p>{{task.name}}</p>
               </ion-item>
@@ -76,6 +76,6 @@
       </ion-list>
     </form>
     <br />
-    <button ion-button block type="submit">Cadastrar</button>
+    <button ion-button block type="submit" [disabled]="formGroup.invalid">Cadastrar</button>
   </form>
 </ion-content>

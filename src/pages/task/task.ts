@@ -18,6 +18,7 @@ import { TaskDTO } from '../../models/task.dto';
 export class TaskPage {
 
   items: TaskDTO[];
+  arrayItemsEmpty: boolean = false;
 
   constructor(
     public navCtrl: NavController, 
@@ -30,6 +31,9 @@ export class TaskPage {
     this.taskService.findAll()
       .subscribe(response => {
         this.items = response['content'];
+        if(this.items.length == 0){
+          this.arrayItemsEmpty = true;
+        }
       },
       error => {
         if (error.status == 403) {

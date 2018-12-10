@@ -26,7 +26,7 @@ export class MyApp {
     this.pages = [
       { title: 'Perfil', component: 'ProfilePage' },
       { title: 'Tarefas', component: 'TaskPage' },
-      { title: 'Distribuir Tarefas', component: 'RegisterPage' },
+      // { title: 'Distribuir Tarefas', component: 'RegisterPage' },
       { title: 'Sair', component: '' }
     ];
 

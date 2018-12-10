@@ -32,14 +32,14 @@ export class SignupPage {
     console.log(this.formGroup.value);
     this.userService.create(this.formGroup.value)
       .subscribe(response => {
-        this.showCreateOk();
+        this.showCreateOk('Cadastro efetuado com sucesso.');
       },
       error => {});
   }
 
-  showCreateOk(){
+  showCreateOk(messageGeneric: string){
     let alert = this.alertCtrl.create({
-      message: 'Cadastro efetuado com sucesso.',
+      subTitle: messageGeneric,
       enableBackdropDismiss: false,
       buttons:[
         {
