@@ -17,7 +17,7 @@ import { TaskDTO } from '../../models/task.dto';
 })
 export class TaskPage {
 
-  items: TaskDTO[];
+  items: TaskDTO[] = [];
   page : number = 0;
   arrayItemsEmpty: boolean = false;
 
@@ -35,10 +35,12 @@ export class TaskPage {
 
   loadData(){
     let loader = this.presentLoading();
-    this.taskService.findAll()
+    this.taskService.findAll(this.page)
       .subscribe(response => {
-        this.items = response['content'];
+        this.items = this.items.concat(response['content']);
         loader.dismiss();
+        console.log(this.page);
+        console.log(this.items);
         if(this.items.length == 0){
           this.arrayItemsEmpty = true;
         }
@@ -66,5 +68,13 @@ export class TaskPage {
     setTimeout(() => {
       refresher.complete();
     }, 2000);
+  }
+
+  doInfinite(infiniteScroll) {
+    this.page++;
+    this.loadData();
+    setTimeout(() => {
+      infiniteScroll.complete();
+    }, 1000);
   }
 }

@@ -11,9 +11,9 @@ export class TaskService {
 
     }
 
-    findAll() : Observable<TaskDTO[]> {
+    findAll(page : number = 0, linesPerPage : number = 5) : Observable<TaskDTO[]> {
         return this.http.get<TaskDTO[]>(
-            `${API_CONFIG.baseUrl}/api/tasks/v1/list/`
+            `${API_CONFIG.baseUrl}/api/tasks/v1/list/?page=${page}&linesPerPage=${linesPerPage}`
         );
     }
 
