@@ -25,7 +25,10 @@
         <p>Data Final: {{ item.register.finalDate }}</p>
         <form (ngSubmit)="changeStatus(item); $event.preventDefault()">
             <ion-buttons end>
-              <button type="submit" ion-button small outline end style="color:'{{item.status == 'Em andamento' ? 'orange' : 'green' }};'">{{ item.status }}</button>
+              <button type="submit" ion-button small outline item-end icon-start [ngStyle]="{'border-color': changeStatusColor(item.status), 'color': changeStatusColor(item.status),'padding': '5px'}">
+                <ion-icon *ngIf="item.status == 'Concluído'" name="checkmark"></ion-icon>
+                {{ item.status }}
+              </button>
             </ion-buttons>
         </form>
       </ion-item>

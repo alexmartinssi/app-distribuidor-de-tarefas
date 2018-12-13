@@ -13,6 +13,8 @@ export class TaskPage {
   items: TaskDTO[] = [];
   page : number = 0;
   arrayItemsEmpty: boolean = false;
+  borderColor: string;
+  textColor: string;
 
   constructor(
     public navCtrl: NavController, 
@@ -86,5 +88,15 @@ export class TaskPage {
       error => {
         loader.dismiss();
       });
+  }
+
+  changeStatusColor(status){
+    let color;
+    if(status == 'Em Andamento'){
+      color = 'orange';
+    }else{
+      color = 'green';
+    }
+    return color;
   }
 }
