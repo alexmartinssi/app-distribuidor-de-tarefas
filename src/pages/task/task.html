@@ -16,13 +16,21 @@
   </ion-item>
   <ion-list *ngIf="arrayItemsEmpty == false">
     <ion-item-sliding *ngFor="let item of items" text-wrap>
-      <ion-item>
+      <ion-item no-lines>
         <h3 text-center>{{ item.name }}</h3>
         <p>Tipo do Registro: {{ item.register.name }}</p>
         <p>Descrição da tarefa: {{ item.description }}</p>
         <p>Premiação: {{ item.register.reward }}</p>
         <p>Data inicial: {{ item.register.initialDate }}</p>
         <p>Data Final: {{ item.register.finalDate }}</p>
+        <form (ngSubmit)="changeStatus(item); $event.preventDefault()">
+            <ion-buttons end>
+              <button type="submit" ion-button small outline end style="color:'{{item.status == 'Em andamento' ? 'orange' : 'green' }};'">{{ item.status }}</button>
+            </ion-buttons>
+        </form>
+      </ion-item>
+    <ion-item>
+
     </ion-item>
   </ion-item-sliding>
   </ion-list>

@@ -3,13 +3,6 @@ import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-an
 import { TaskService } from '../../services/domain/task.service';
 import { TaskDTO } from '../../models/task.dto';
 
-/**
- * Generated class for the TaskPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-task',
@@ -76,5 +69,22 @@ export class TaskPage {
     setTimeout(() => {
       infiniteScroll.complete();
     }, 1000);
+  }
+
+  changeStatus(task){
+    let loader = this.presentLoading();
+    if (task.status === 'Em Andamento') {
+      task.status = 'Concluído';
+    } else {
+      task.status = 'Em Andamento';
+    }
+    console.log('task ', task);
+    this.taskService.changeStatus(task)
+      .subscribe(response => {
+        loader.dismiss();
+      },
+      error => {
+        loader.dismiss();
+      });
   }
 }

@@ -17,4 +17,15 @@ export class TaskService {
         );
     }
 
+    changeStatus(obj: TaskDTO){
+        return this.http.put(
+            `${API_CONFIG.baseUrl}/api/tasks/v1/change-status/`,
+            obj,
+            {
+                observe: 'response',
+                responseType: 'text'
+            }
+        );
+    }
+
 }

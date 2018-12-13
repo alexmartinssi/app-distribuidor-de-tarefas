@@ -18,12 +18,11 @@ export class UserService {
     }
 
     findByEmail(email: string) : Observable<UserDTO> {
-        return this.http.get<UserDTO>(`${API_CONFIG.baseUrl}/api/users/email?value=${email}`)
+        console.log(email);
+        return this.http.get<UserDTO>(`${API_CONFIG.baseUrl}/api/users/v1/find-by-email/${email}`)
     }
 
     create(obj: UserDTO){
-        console.log('Entrou no User Service Create.');
-        console.log(obj);
         return this.http.post(
             `${API_CONFIG.baseUrl}/api/users/v1/create/`,
             obj,

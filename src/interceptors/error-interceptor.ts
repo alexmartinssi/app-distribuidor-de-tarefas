@@ -3,8 +3,6 @@ import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HTTP_INTERCEPTORS
 import { Observable } from 'rxjs/Rx';
 import { StorageService } from '../services/storage.service';
 import { AlertController } from 'ionic-angular';
-import { FieldMessage } from '../models/fieldmessage';
-
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
@@ -79,8 +77,8 @@ export class ErrorInterceptor implements HttpInterceptor {
 
     handleDefaultEror(errorObj) {
         let alert = this.alertCtrl.create({
-            title: 'Erro ' + errorObj.status + ': ' + errorObj.error,
-            message: errorObj.message,
+            title: 'Ocorreu um erro interno!',
+            message: 'Por favor, entre em contato com o suporte.',
             enableBackdropDismiss: false,
             buttons: [
                 {
