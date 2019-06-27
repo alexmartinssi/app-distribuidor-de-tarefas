@@ -28,6 +28,10 @@ export class TaskPage {
     this.loadData();
   }
 
+  ionViewWillEnter() {
+    this.loadData();
+  }
+
   loadData(){
     let loader = this.presentLoading();
     this.taskService.findAll(this.page)

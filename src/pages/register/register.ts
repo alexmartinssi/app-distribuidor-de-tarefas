@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, AlertController, Navbar } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { TaskDTO } from '../../models/task.dto';
 import { RegisterService } from '../../services/domain/register.service';
@@ -22,6 +22,8 @@ export class RegisterPage {
   task: TaskDTO = null;
   users: UserDTO[] = [];
   show: boolean = false;
+
+  @ViewChild( Navbar ) navBar: Navbar;
 
   constructor(
     public navCtrl: NavController,
@@ -48,6 +50,12 @@ export class RegisterPage {
         this.listUsers = response;
       },
         error => { });
+
+      this.navBar.backButtonClick = () => {
+        // Anything in here will fire when the back button is clicked
+        // this._navController.getPrevious().component gets the previous component from the nav stack
+        this.navCtrl.setRoot( this.navCtrl.getPrevious().component )
+      }
   }
 
   userChanged(event: {
