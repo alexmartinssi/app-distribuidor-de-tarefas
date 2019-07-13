@@ -2,7 +2,7 @@
 <widget id="com.alexmartins.distribuirdetarefas" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Distribuidor de tarefas</name>
     <description>Produto Mínimo Viável de distribuidor de tarefas</description>
-    <author email="alexmartins@gmail.com" href="https://www.linkedin.com/in/alex-martins-2b480023/">Alex Martins Bezerra</author>
+    <author email="alexmbezerrajp@gmail.com" href="https://www.linkedin.com/in/alex-martins-2b480023/">Alex Martins Bezerra</author>
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
