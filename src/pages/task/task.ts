@@ -28,18 +28,12 @@ export class TaskPage {
     this.loadData();
   }
 
-  ionViewWillEnter() {
-    this.loadData();
-  }
-
   loadData(){
     let loader = this.presentLoading();
     this.taskService.findAll(this.page)
       .subscribe(response => {
         this.items = this.items.concat(response['content']);
         loader.dismiss();
-        console.log(this.page);
-        console.log(this.items);
         if(this.items.length == 0){
           this.arrayItemsEmpty = true;
         }

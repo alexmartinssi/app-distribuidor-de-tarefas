@@ -50,12 +50,6 @@ export class RegisterPage {
         this.listUsers = response;
       },
         error => { });
-
-      this.navBar.backButtonClick = () => {
-        // Anything in here will fire when the back button is clicked
-        // this._navController.getPrevious().component gets the previous component from the nav stack
-        this.navCtrl.setRoot( this.navCtrl.getPrevious().component )
-      }
   }
 
   userChanged(event: {
@@ -177,14 +171,15 @@ export class RegisterPage {
     alert.present();
   }
 
-  showCreateOk(messageGeneric: string) {
+  showCreateOk(messageGeneric: string){
     let alert = this.alertCtrl.create({
-      subTitle: "<p>" + messageGeneric + "</p>",
+      subTitle: messageGeneric,
       enableBackdropDismiss: false,
-      buttons: [
+      buttons:[
         {
           text: 'Ok',
           handler: () => {
+            this.navCtrl.setRoot( this.navCtrl.getPrevious().component )
           }
         }
       ]
